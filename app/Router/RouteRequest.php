@@ -2,6 +2,8 @@
 
 namespace app\Router;
 
+use Exception;
+
 class RouteRequest
 {
     private string $requestUri;
@@ -15,14 +17,11 @@ class RouteRequest
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
     }
 
-    private function getRoutesByMethod(Router $router): array
-    {
-        return $router->getRoutes()[$this->requestMethod];
-    }
-
     private function tranformUriParamsInRegex($uri)
     {
-        return preg_replace(['/{\w+}/', '/{\w+\?}/'], ['(\w+)', '(\w+)?'], $uri);
+        $pattern = '/{\w+}/';
+        $patternOpitional = '/' . URI_START_PARM . '\w+\?' . URI_END_PARM . '/';
+        return preg_replace([$pattern, $patternOpitional], ['(\w+)', '(\w+)?'], $uri);
     }
 
     private function setRouteParamsValue(array $ary): void
@@ -35,32 +34,27 @@ class RouteRequest
 
     private function setRouteRequired(Router $router)
     {
-        $routes = $this->getRoutesByMethod($router);
+        $routes = $router->getRoutes($this->requestMethod);
         $routesKeys = array_keys($routes);
         foreach ($routesKeys as $uri) {
-            $newUri = $this->tranformUriParamsInRegex($uri);
-            $pattern = str_replace('/', '\/', $newUri);
-            $pattern = '/^' . $pattern . '$/';
-            $isFound =  preg_match_all($pattern, $this->requestUri, $match, PREG_SET_ORDER);
-            if ($isFound) {
-                $this->route = $routes[$uri];
+            $defaultUri = $uri;
+            $uri = $this->tranformUriParamsInRegex($defaultUri);
+            $pattern = str_replace('/', '\/', $uri);
+            $routeIsFound =  preg_match_all('/^' . $pattern . '$/', $this->requestUri, $match, PREG_SET_ORDER);
+            if ($routeIsFound) {
+                $this->route = $routes[$defaultUri];
                 $this->setRouteParamsValue($match);
-
                 return;
             }
         }
-        dd('not found');
+        throw new Exception('NOT FOUND', 404);
     }
 
     public function run(Router $router)
     {
         $this->setRouteRequired($router);
         $params = $this->routeParamsValue;
-        $controller = new $this->route->action[0]();
-        $action = $this->route->action[1];
-        call_user_func_array(
-            [$controller, $action],
-            $params
-        );
+        $action = $this->route->action;
+        call_user_func_array($action, $params);
     }
 }
