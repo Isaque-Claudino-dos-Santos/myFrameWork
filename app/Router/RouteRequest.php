@@ -20,6 +20,11 @@ class RouteRequest
         return $router->getRoutes()[$this->requestMethod];
     }
 
+    private function tranformUriParamsInRegex($uri)
+    {
+        return preg_replace(['/{\w+}/', '/{\w+\?}/'], ['(\w+)', '(\w+)?'], $uri);
+    }
+
     private function setRouteParamsValue(array $ary): void
     {
         unset($ary[0][0]);
@@ -33,7 +38,8 @@ class RouteRequest
         $routes = $this->getRoutesByMethod($router);
         $routesKeys = array_keys($routes);
         foreach ($routesKeys as $uri) {
-            $pattern = str_replace('/', '\/', $uri);
+            $newUri = $this->tranformUriParamsInRegex($uri);
+            $pattern = str_replace('/', '\/', $newUri);
             $pattern = '/^' . $pattern . '$/';
             $isFound =  preg_match_all($pattern, $this->requestUri, $match, PREG_SET_ORDER);
             if ($isFound) {
