@@ -13,8 +13,8 @@ class Router
     public function __construct()
     {
         $this->methods = ['GET', 'POST'];
-        $this->routes = $this->defineKeyWithMethodsInArray();
-        $this->namesUri = $this->defineKeyWithMethodsInArray();
+        $this->routes = $this->defineMethodsWithKeysInArray();
+        $this->namesUri = $this->defineMethodsWithKeysInArray();
     }
 
     public function getRoutes()
@@ -27,7 +27,7 @@ class Router
         return $this->namesUri;
     }
 
-    private function defineKeyWithMethodsInArray(): array
+    private function defineMethodsWithKeysInArray(): array
     {
         return array_fill_keys($this->methods, []);
     }
