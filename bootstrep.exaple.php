@@ -15,6 +15,10 @@ define('DB_NAME', 'test');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
 
+//Router URI
+define('URI_START_PARM', '{');
+define('URI_END_PARM', '}');
+
 //ENVIRONMENT(DEV ENVIRONMENT)
 
 define('ENVIRONMENT_DBUG', true);
