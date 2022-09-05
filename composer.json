@@ -1,0 +1,19 @@
+{
+  "name": "isaque/users",
+  "autoload": {
+    "files": [
+      "./bootstrep.php",
+      "./app/helpers/loadHelpers.php"
+    ],
+    "psr-4": {
+      "app\\": "app/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Isaque-Claudino-dos-Santos",
+      "email": "isaqueclaudino12@gmail.com"
+    }
+  ],
+  "require": {}
+}
