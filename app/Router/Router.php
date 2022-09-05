@@ -17,9 +17,11 @@ class Router
         $this->namesUri = $this->defineMethodsWithKeysInArray();
     }
 
-    public function getRoutes()
+    public function getRoutes(string $scope = '')
     {
-        return $this->routes;
+        if (empty($scope))
+            return $this->routes;
+        return $this->routes[$scope];
     }
 
     public function getNamesUri()
