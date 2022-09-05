@@ -34,11 +34,5 @@ $router->save(
 );
 
 
-
-// echo '<pre>';
-// print_r($router->getRoutes());
-// print_r($router->getNamesUri());
-// echo '</pre>';
-
 $routeRequest = new RouteRequest();
 $routeRequest->run($router);
