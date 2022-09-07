@@ -2,8 +2,6 @@
 
 namespace app\Application;
 
-use app\Router\Router;
-use app\Router\RouteRequest;
 
 class Application implements IApplication
 {
