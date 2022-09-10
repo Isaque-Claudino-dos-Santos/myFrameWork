@@ -2,6 +2,8 @@
 
 namespace app\Router;
 
+use Exception;
+
 class Route
 {
     public $action;
@@ -14,11 +16,26 @@ class Route
         $this->method = $method;
     }
 
+    private function existNameSpace(string $namespace): string
+    {
+        if (!class_exists($namespace))
+            throw new Exception("The class controller passed in route <br> uri: {$this->uri} <br> method: {$this->method} <br> not exist");
+        return $namespace;
+    }
+
+    private function existMethodInClass(object $class, string $methodName): array
+    {
+        if (!method_exists($class, $methodName))
+            throw new Exception("The method $methodName in class $class not exist");
+
+        return  [$class, $methodName];
+    }
+
     private function handleActionWithController(array $action): array
     {
-        if (class_exists($action[0]))
-            $controller = new $action[0]();
-        return [$controller, $action[1]];
+        $namespace = $this->existNameSpace($action[0]);
+        $controller = new $namespace();
+        return $this->existMethodInClass($controller, $action[1]);
     }
 
     private function handleAction(array|callable $action): array|callable
