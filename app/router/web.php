@@ -7,8 +7,7 @@ use src\Router\RouteRequest;
 #------------#
 # Cotrollers #
 #------------#
-use app\Controllers\HomeController;
-use app\Controllers\UserController;
+
 
 $router = new Router();
 
