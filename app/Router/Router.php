@@ -2,75 +2,45 @@
 
 namespace app\Router;
 
-use app\Router\Route;
+use app\Router\Methods;
 
 class Router
 {
+    private Routes $GET;
+    private Routes $POST;
     private readonly array $methods;
-    private array $routes = [];
-    private array $namesUri = [];
 
     public function __construct()
     {
+        $this->GET = new Routes('GET');
+        $this->POST = new Routes('POST');
         $this->methods = ['GET', 'POST'];
-        $this->routes = $this->defineMethodsWithKeysInArray();
-        $this->namesUri = $this->defineMethodsWithKeysInArray();
     }
 
-    public function getRoutes(string $scope = '')
+    public function findRoutes(string $method): Routes
     {
-        if (empty($scope))
-            return $this->routes;
-        return $this->routes[$scope];
+        $method = strtoupper($method);
+        if (!in_array($method, $this->methods))
+            throw new \Exception("The method $method passsed not valid");
+        return $this->$method;
     }
 
-    public function getNamesUri()
+    private function saveRoute(string $uri, array|callable $action, string $method, string $name = ''): void
     {
-        return $this->namesUri;
+        $method = strtoupper($method);
+        $route = new Route($uri, $action, $method);
+        $route->name = $name;
+        $routes = $this->$method;
+        $routes->add($route);
     }
 
-    private function defineMethodsWithKeysInArray(): array
+    public function get(string $uri, array|callable $action, string $name = ''): void
     {
-        return array_fill_keys($this->methods, []);
+        $this->saveRoute($uri, $action, 'get', $name);
     }
 
-    private function methodRouteIsValid(Route $route): bool
+    public function post(string $uri, array|callable $action, string $name = ''): void
     {
-        return in_array($route->method, $this->methods);
-    }
-
-    private function uriRouteAlreadyUsed(Route $route): bool
-    {
-        $routes = $this->routes[$route->method];
-        return array_key_exists($route->uri, $routes);
-    }
-
-    private function nameUriAlreadyUsed(Route $route, string $name): bool
-    {
-        $names = $this->namesUri[$route->method];
-        return array_key_exists($name, $names);
-    }
-
-    private function validateRoute(Route $route, string $name): bool
-    {
-        if (!$this->methodRouteIsValid($route))
-            throw new \Exception('The method ' . $route->method . ' passed in route not valid');
-        if ($this->uriRouteAlreadyUsed($route))
-            throw new \Exception('The uri ' . $route->uri . ' passed in route already defined');
-        if ($this->nameUriAlreadyUsed($route, $name))
-            throw new \Exception('The name uri ' . $name . ' passed alread used');
-        return true;
-    }
-
-    private function defineRoute(Route $route, string $name): void
-    {
-        $this->routes[$route->method][$route->uri] = $route;
-        $this->namesUri[$route->method][$name] = $route->uri;
-    }
-
-    public function save(Route $route, string $name = ''): void
-    {
-        if ($this->validateRoute($route, $name))
-            $this->defineRoute($route, $name);
+        $this->saveRoute($uri, $action, 'post', $name);
     }
 }
