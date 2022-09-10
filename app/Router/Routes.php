@@ -54,7 +54,7 @@ class Routes
         $this->routes[$route->uri] = $route;
     }
 
-    public function find(string $uri): Route
+    public function findRoute(string $uri): Route
     {
         if (!$this->uriExistInRoutes($uri))
             throw new \Exception('The uri(' . $uri . ') not found in routes');
