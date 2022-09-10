@@ -3,7 +3,7 @@
   "autoload": {
     "files": [
       "./bootstrep.php",
-      "./helpers/loadHelpers.php"
+      "./helpers/loadHelpers.pshp"
     ],
     "psr-4": {
       "app\\": "app/",
