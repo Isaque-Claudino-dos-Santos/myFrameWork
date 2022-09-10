@@ -9,7 +9,8 @@ define('SERVER_HOST', 'localhost');
 define('SERVER_PORT', 2022);
 
 //DB(DATA-BASE)
-define('DB_HOST', '');
+define('DB_DIALECT', 'mysql');
+define('DB_HOST', 'localhost');
 define('DB_PORT', 3306);
 define('DB_NAME', 'test');
 define('DB_USER', 'root');
