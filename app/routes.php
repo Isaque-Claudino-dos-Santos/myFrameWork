@@ -3,7 +3,6 @@
 # Routers #
 #---------#
 use app\Router\Router;
-use app\Router\Route;
 #------------#
 # Cotrollers #
 #------------#
@@ -13,26 +12,29 @@ use app\Router\RouteRequest;
 
 $router = new Router();
 
-$router->save(
-    route: new Route('/', [HomeController::class, 'index'], 'GET'),
+$router->get(
+    uri: '/',
+    action: [HomeController::class, 'index'],
     name: 'home.index'
 );
 
-$router->save(
-    route: new Route('/user', [UserController::class, 'index'], 'GET'),
+
+$router->get(
+    uri: '/user/{id}',
+    action: [UserController::class, 'index'],
     name: 'user.index'
 );
 
-$router->save(
-    route: new Route('/user/{id}', [UserController::class, 'show'], 'GET'),
-    name: 'user.show'
+$router->get(
+    uri: '/user/{id}/contato/{tell}',
+    action: [UserController::class, 'index'],
+    name: 'user.contato.index'
 );
 
-$router->save(
-    route: new Route('/user/{id}/contato/{telefone?}', [UserController::class, 'show'], 'GET'),
-    name: 'user.contato.show'
-);
+$routerRequest = new RouteRequest($router);
+
+$routerRequest->run();  
 
 
-$routeRequest = new RouteRequest();
-$routeRequest->run($router);
+#  ___  #
+#-(•_•)-#
