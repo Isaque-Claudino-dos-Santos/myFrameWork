@@ -2,6 +2,8 @@
 
 namespace app\Controllers;
 
+use app\Http\Request;
+
 class UserController
 {
     public function index($id)
@@ -11,11 +13,17 @@ class UserController
 
     public function show()
     {
-        echo 'ok show';
+        echo "
+        <form action='/user/123' method='POST'>
+            <input type='test' name='name'>
+            <button>save</button>
+        </form>
+        ";
     }
 
-    public function store()
+    public function store(Request $request, $id)
     {
-        dd($_POST);
+        dd($id, 0);
+        dd($request->findAll());
     }
 }
