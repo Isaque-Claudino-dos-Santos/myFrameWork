@@ -17,7 +17,7 @@ class Router
         $this->methods = ['GET', 'POST'];
     }
 
-    public function findRoutes(string $method): Routes
+    public function getMethodVerb(string $method): Routes
     {
         $method = strtoupper($method);
         if (!in_array($method, $this->methods))
