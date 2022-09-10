@@ -2,8 +2,6 @@
 
 namespace app\Router;
 
-use app\Router\Methods;
-
 class Router
 {
     private Routes $GET;
