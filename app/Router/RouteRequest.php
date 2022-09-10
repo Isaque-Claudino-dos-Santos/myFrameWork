@@ -47,18 +47,12 @@ class RouteRequest
         }
     }
 
-    private function handleGet()
-    {
-    }
-    private function handlePost()
-    {
-    }
-
     public function run()
     {
-        $routes = $this->router->findRoutes($this->requestMethod);
-        $require = $this->handleUriRequired($routes->getRoutes()) ?? throw new \Exception('Erro 404 not found', 404);
-        $route = $routes->find($require['uri']);
+        $methoVerb = $this->router->getMethodVerb($this->requestMethod);
+        $routes = $methoVerb->getRoutes();
+        $require = $this->handleUriRequired($routes) ?? throw new \Exception('Erro 404 not found', 404);
+        $route = $methoVerb->findRoute($require['uri']);
 
         call_user_func_array($route->action, $require['params']);
     }
