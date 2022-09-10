@@ -2,8 +2,7 @@
   "name": "isaque/users",
   "autoload": {
     "files": [
-      "./bootstrep.php",
-      "./helpers/loadHelpers.pshp"
+      "./bootstrep.php"
     ],
     "psr-4": {
       "app\\": "app/",
