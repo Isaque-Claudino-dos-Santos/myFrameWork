@@ -1,8 +1,8 @@
 <?php
 require_once('../vendor/autoload.php');
 
-use app\Application\Application;
-
-$application = new Application();
-
-$application->buildRoutes('app/routes.php');
+try {
+    require_once('../app/routes.php');
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
