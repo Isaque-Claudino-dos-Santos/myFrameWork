@@ -9,9 +9,13 @@ class UserController
         echo 'User index! ID:' . $id;
     }
 
-    public function show($id, $tell)
+    public function show()
     {
+        echo 'ok show';
+    }
 
-        echo 'Hello user ' . $id . ' with tell ' . $tell;
+    public function store()
+    {
+        dd($_POST);
     }
 }
