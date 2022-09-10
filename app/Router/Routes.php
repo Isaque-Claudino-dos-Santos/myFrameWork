@@ -18,6 +18,11 @@ class Routes
         return $this->routes;
     }
 
+    public function existRoutes(): bool
+    {
+        return !empty($this->routes);
+    }
+
     private function setRouteNames(string $uri, string $name)
     {
         $this->routeNames[$uri] = $name;
