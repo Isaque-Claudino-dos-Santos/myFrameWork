@@ -20,13 +20,13 @@ $router->get(
 
 
 $router->get(
-    uri: '/user',
+    uri: '/user/{id}',
     action: [UserController::class, 'show'],
     name: 'user.show'
 );
 
 $router->post(
-    uri: '/user',
+    uri: '/user/{id}',
     action: [UserController::class, 'store'],
     name: 'user.store'
 );
