@@ -3,9 +3,9 @@
 namespace src\DataBase;
 
 
-class Conection
+abstract class Conection
 {
-    private \PDO $pdo;
+    protected readonly \PDO $pdo;
 
 
     public function __construct()
@@ -15,10 +15,5 @@ class Conection
             DB_USER,
             DB_PASS
         );
-    }
-
-    public  function getPDO()
-    {
-        return $this->pdo;
     }
 }
