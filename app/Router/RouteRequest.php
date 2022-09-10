@@ -2,6 +2,8 @@
 
 namespace app\Router;
 
+use app\Http\Request;
+
 class RouteRequest
 {
     private string $requestUri;
@@ -32,6 +34,7 @@ class RouteRequest
         return str_replace('/', '\/', $pattern);
     }
 
+
     private function handleUriRequired(array $routes)
     {
         foreach ($routes as $uri => $route) {
@@ -41,10 +44,20 @@ class RouteRequest
             if ($routeFound) {
                 return [
                     'uri' => $uri,
-                    'params' =>  array_slice($match[0], 1)
+                    'postRequest' => new Request($_POST),
+                    'getRequest' => array_slice($match[0], 1),
                 ];
             }
         }
+    }
+
+    private function handleParams(array $params): array
+    {
+        $post = $params['postRequest'];
+        $get = $params['getRequest'];
+
+        if (empty($post)) return $get;
+        return [$post, ...$get];
     }
 
     public function run()
@@ -53,7 +66,7 @@ class RouteRequest
         $routes = $methoVerb->getRoutes();
         $require = $this->handleUriRequired($routes) ?? throw new \Exception('Erro 404 not found', 404);
         $route = $methoVerb->findRoute($require['uri']);
-
-        call_user_func_array($route->action, $require['params']);
+        $params = $this->handleParams($require);
+        call_user_func_array($route->action, $params);
     }
 }
