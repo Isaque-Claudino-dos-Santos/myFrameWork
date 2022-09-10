@@ -2,8 +2,8 @@
 
 //DIR(DIRECTORY) CONSTANTS
 define('DIR_ROOT', dirname(__FILE__));
-define('DIR_VIEW', DIR_ROOT . '/resources/views/');
-define('DIR_HELPERS', DIR_ROOT . '//helpers/');
+define('DIR_VIEW', DIR_ROOT . '/app/resources/views/');
+
 //SERVER
 define('SERVER_HOST', 'localhost');
 define('SERVER_PORT', 2022);
