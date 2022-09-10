@@ -20,15 +20,15 @@ $router->get(
 
 
 $router->get(
-    uri: '/user/{id}',
-    action: [UserController::class, 'index'],
-    name: 'user.index'
+    uri: '/user',
+    action: [UserController::class, 'show'],
+    name: 'user.show'
 );
 
-$router->get(
-    uri: '/user/{id}/contato/{tell}',
-    action: [UserController::class, 'index'],
-    name: 'user.contato.index'
+$router->post(
+    uri: '/user',
+    action: [UserController::class, 'store'],
+    name: 'user.store'
 );
 
 $routerRequest = new RouteRequest($router);
