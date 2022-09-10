@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Router;
+namespace src\Router;
 
-use app\Http\Request;
+use src\Http\Request;
 
 class RouteRequest
 {

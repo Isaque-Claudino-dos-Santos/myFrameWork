@@ -2,13 +2,13 @@
 #---------#
 # Routers #
 #---------#
-use app\Router\Router;
+use src\Router\Router;
+use src\Router\RouteRequest;
 #------------#
 # Cotrollers #
 #------------#
 use app\Controllers\HomeController;
 use app\Controllers\UserController;
-use app\Router\RouteRequest;
 
 $router = new Router();
 

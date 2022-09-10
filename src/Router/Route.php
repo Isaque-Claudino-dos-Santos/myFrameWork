@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Router;
+namespace src\Router;
 
 use Exception;
 

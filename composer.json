@@ -3,10 +3,11 @@
   "autoload": {
     "files": [
       "./bootstrep.php",
-      "./app/helpers/loadHelpers.php"
+      "./helpers/loadHelpers.php"
     ],
     "psr-4": {
-      "app\\": "app/"
+      "app\\": "app/",
+      "src\\": "src/"
     }
   },
   "authors": [
