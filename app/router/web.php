@@ -3,7 +3,7 @@
 # Routers #
 #---------#
 
-
+use app\Controllers\UserController;
 use src\Router\Router;
 use src\Router\RouteRequest;
 #------------#
@@ -11,21 +11,21 @@ use src\Router\RouteRequest;
 #------------#
 require_once('../src/helpers/dd.php');
 
-use src\DataBase\DB;
-
-$DB = new DB();
-
-
 $router = new Router();
 
 $router->get('/', function () {
-    global $DB;
+    echo "
+    <a href='/user'>User Index</a> <br>
+    ";
 }, 'home.index');
 
+$router->get('/user', [UserController::class, 'index'], 'user.index');
+
+
+
+
 $routerRequest = new RouteRequest($router);
-
 $routerRequest->run();  
-
 
 #  ___  #
 #-(•_•)-#
