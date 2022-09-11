@@ -12,7 +12,7 @@ class RouteRequest
     public function __construct(private Router $router)
     {
         $this->router = $router;
-        $this->requestUri = $_SERVER['REQUEST_URI'];
+        $this->requestUri = $_SERVER['REQUEST_URI'] === '/' ? '/' : Rtrim($_SERVER['REQUEST_URI'], '/');
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
     }
 
