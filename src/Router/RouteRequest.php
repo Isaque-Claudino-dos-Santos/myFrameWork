@@ -18,10 +18,10 @@ class RouteRequest
 
     private function tranformUriParamsInRegex($uri)
     {
-        $patternValueRequired = '/' . URI_START_PARM . '\w+' . URI_END_PARM . '/';
-        $patternValueOpitional = '/' . URI_START_PARM . '\w+\?' . URI_END_PARM . '/';
-        $replaceValueRequired = '(\w+)';
-        $replaceValueOptional = $patternValueRequired . '?';
+        $patternValueRequired = '/(\/' . URI_START_PARM . '\w+' . URI_END_PARM . ')/';
+        $patternValueOpitional = '/(\/' . URI_START_PARM . '\w+\?' . URI_END_PARM . ')/';
+        $replaceValueRequired = '(/\w+)';
+        $replaceValueOptional =  '(/\w+)?';
         return preg_replace(
             [$patternValueRequired, $patternValueOpitional],
             [$replaceValueRequired, $replaceValueOptional],
@@ -55,8 +55,12 @@ class RouteRequest
     {
         $post = $params['postRequest'];
         $get = $params['getRequest'];
+        $get = array_map(function ($v) {
+            return trim($v, '/');
+        }, $get);
 
-        if (empty($post)) return $get;
+        if (empty($post->findAll()))
+            return empty($get) ? range(0, 10) : $get;
         return [$post, ...$get];
     }
 
