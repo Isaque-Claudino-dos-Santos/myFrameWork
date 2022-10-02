@@ -41,4 +41,10 @@ class Router
     {
         $this->saveRoute($uri, $action, 'post', $name);
     }
+
+    public function findUriByName(string $method, string $name): string
+    {
+        $method = strtoupper($method);
+        return $this->$method->getRouteNames($name);
+    }
 }
