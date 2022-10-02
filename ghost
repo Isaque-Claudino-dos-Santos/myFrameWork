@@ -7,5 +7,12 @@ use src\Handlers\ComandsHandler;
 
 $comand = new ComandsHandler();
 
-
-$comand->call($argv[1] ?? '', $argv[2] ?? '');
+try {
+    $comand->call($argv[1] ?? '', $argv[2] ?? '');
+} catch (PDOException $e) {
+    echo "MSG: " . $e->getMessage() . "\n";
+    echo "CODE: " . $e->getCode() . "\n";
+} catch (Exception $e) {
+    echo "MSG: " . $e->getMessage() . "\n";
+    echo "CODE: " . $e->getCode() . "\n";
+}
