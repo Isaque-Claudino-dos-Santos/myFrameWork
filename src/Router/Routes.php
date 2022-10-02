@@ -23,9 +23,14 @@ class Routes
         return !empty($this->routes);
     }
 
+    public function getRouteNames(string $name): string
+    {
+        return $this->routeNames[$name];
+    }
+
     private function setRouteNames(string $uri, string $name)
     {
-        $this->routeNames[$uri] = $name;
+        $this->routeNames[$name] = $uri;
     }
 
     private function uriExistInRoutes(string $uri): bool
