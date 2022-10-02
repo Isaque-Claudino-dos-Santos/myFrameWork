@@ -1,15 +1,7 @@
 <?php
-#---------#
-# Routers #
-#---------#
 
 use app\Controllers\HomeController;
 use src\Router\Router;
-use src\Router\RouteRequest;
-#------------#
-# Cotrollers #
-#------------#
-
 
 require_once('../src/helpers/dd.php');
 
