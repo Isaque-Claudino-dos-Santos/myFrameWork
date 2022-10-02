@@ -2,24 +2,20 @@
 #---------#
 # Routers #
 #---------#
+
+use app\Controllers\HomeController;
 use src\Router\Router;
 use src\Router\RouteRequest;
 #------------#
 # Cotrollers #
 #------------#
-use app\Controllers\UserController;
+
 
 require_once('../src/helpers/dd.php');
 
 $router = new Router();
 
-$router->get(
-    uri: '/',
-    action: function () {
-        return 'Hello Word !!';
-    },
-    name: 'home.index'
-);
+$router->get('/', [HomeController::class, 'index'], 'home.index');
 
 return $router;
 #  ___  #
