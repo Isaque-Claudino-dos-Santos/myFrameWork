@@ -2,28 +2,25 @@
 #---------#
 # Routers #
 #---------#
-
-use app\Controllers\UserController;
 use src\Router\Router;
 use src\Router\RouteRequest;
 #------------#
 # Cotrollers #
 #------------#
+use app\Controllers\UserController;
+
 require_once('../src/helpers/dd.php');
 
 $router = new Router();
 
 $router->get(
-    '/',
-    function () {
-        echo 'Hello Word';
+    uri: '/',
+    action: function () {
+        return 'Hello Word !!';
     },
-    'home.index'
+    name: 'home.index'
 );
 
-
-$routerRequest = new RouteRequest($router);
-$routerRequest->run();  
-
+return $router;
 #  ___  #
 #-(•_•)-#
