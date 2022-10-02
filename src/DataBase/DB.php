@@ -28,7 +28,7 @@ abstract class DB extends Conection
 
     protected function createTable(string $tableName, array $column): void
     {
-        $column = $this->concatKeyValue(' ', $column);
+        // $column = $this->concatKeyValue(' ', $column);
         $columnQuery = implode(',', $column);
 
         $query = $this->pdo->prepare("create table $tableName ( $columnQuery )");
