@@ -1,0 +1,11 @@
+<?php
+require_once './vendor/autoload.php';
+
+
+use src\Handlers\ComandsHandler;
+
+
+$comand = new ComandsHandler();
+
+
+$comand->call($argv[1] ?? '', $argv[2] ?? '');
