@@ -11,7 +11,7 @@ class UserMigration extends Migration
 
     public function up(BluePrintTable $table): array
     {
-        $table->name = 'users';
+        $table->name = $this->table;
         return [
             $table->id()->end(),
             $table->str('name')->notNull()->end()
