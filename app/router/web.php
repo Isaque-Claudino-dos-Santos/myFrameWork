@@ -13,6 +13,14 @@ require_once('../src/helpers/dd.php');
 
 $router = new Router();
 
+$router->get(
+    '/',
+    function () {
+        echo 'Hello Word';
+    },
+    'home.index'
+);
+
 
 $routerRequest = new RouteRequest($router);
 $routerRequest->run();  
