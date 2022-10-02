@@ -22,6 +22,7 @@ class Application
 
     public function buildRouteResponse()
     {
-        echo $this->routeResponse;
+        //response of the routerRequest
+        $this->routeResponse;
     }
 }
