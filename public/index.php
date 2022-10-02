@@ -1,11 +1,13 @@
 <?php
 
-declare(strict_types=1);
+use app\Application\Application;
 
 require_once('../vendor/autoload.php');
 
-try {
-    require_once('../app/router/web.php');
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
+
+$application = new Application();
+
+$router = $application->routerWeb('app/router/web');
+$application->routerRun($router);
+
+$application->buildRouteResponse();
