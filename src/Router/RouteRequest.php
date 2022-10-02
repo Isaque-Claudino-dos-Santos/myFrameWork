@@ -2,7 +2,7 @@
 
 namespace src\Router;
 
-use src\Http\Request;
+use app\Application\Request;
 
 class RouteRequest
 {
@@ -64,13 +64,13 @@ class RouteRequest
         return [$post, ...$get];
     }
 
-    public function run()
+    public function run(): mixed
     {
         $methoVerb = $this->router->getMethodVerb($this->requestMethod);
         $routes = $methoVerb->getRoutes();
         $require = $this->handleUriRequired($routes) ?? throw new \Exception('Erro 404 not found', 404);
         $route = $methoVerb->findRoute($require['uri']);
         $params = $this->handleParams($require);
-        call_user_func_array($route->action, $params);
+        return call_user_func_array($route->action, $params);
     }
 }
